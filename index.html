@@ -1146,7 +1146,7 @@
             <span class="trial-title">KinoHarth API</span>
             <span class="trial-badge">FREE</span>
           </div>
-          <div class="trial-subtitle">14,230 / 20,000 reqs</div>
+          <div class="trial-subtitle">AniList metadata proxy</div>
           <div class="trial-progress-bg">
             <div class="trial-progress-fill"></div>
           </div>
@@ -1260,7 +1260,7 @@
                 </div>
                 <div class="gs-info">
                   <span class="gs-title">API Key</span>
-                  <span class="gs-subtitle" id="api-key-text">kh_live_9a4f2e987c...</span>
+                  <span class="gs-subtitle" id="api-key-text">Optional via X-KinoHarth-Key</span>
                 </div>
                 <div class="gs-btn-icon" onclick="copyApiKey()" title="Copy API Key">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-width="2"/></svg>
@@ -1650,7 +1650,7 @@ const anime = data.Page.media;</pre>
               <div style="background-color: var(--bg-page); border-radius: 12px; padding: 1.25rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color);">
                 <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                   <span style="font-weight: 700; font-size: 0.85rem;">Active Production Key</span>
-                  <span style="font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted);" id="api-key-full">kh_live_9a4f2e987ca3710be29e8705f</span>
+                  <span style="font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted);" id="api-key-full">Set KINOHARTH_API_KEY in Vercel env</span>
                 </div>
                 <button class="upgrade-btn" style="max-width: 120px;" onclick="copyApiKey()">Copy Key</button>
               </div>
@@ -1691,6 +1691,16 @@ const anime = data.Page.media;</pre>
                     <td><span style="color: var(--warning); font-weight:700;">DEVELOPMENT</span></td>
                     <td>Local Client</td>
                   </tr>
+                  <tr>
+                    <td class="dt-code">http://localhost:5173</td>
+                    <td><span style="color: var(--warning); font-weight:700;">DEVELOPMENT</span></td>
+                    <td>Vite Local Client</td>
+                  </tr>
+                  <tr>
+                    <td class="dt-code">http://localhost:5174</td>
+                    <td><span style="color: var(--warning); font-weight:700;">DEVELOPMENT</span></td>
+                    <td>Vite Local Client</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -1709,13 +1719,28 @@ const anime = data.Page.media;</pre>
   </div>
 
   <script>
+    let selectedEndpoint = '/api/search';
+
     // Tab switching routing logic
     function switchView(viewId) {
       // 1. Manage Active Navigation Highlight
       document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
       });
-      event.currentTarget.classList.add('active');
+      const sourceItem = window.event?.currentTarget || Array.from(document.querySelectorAll('.nav-item')).find(item => {
+        if (viewId === 'overview') return item.innerText.includes('Overview');
+        if (viewId === 'search-nav') return item.innerText.includes('Search Anime');
+        if (viewId === 'catalog-nav') return item.innerText.includes('Catalog Explorer');
+        if (viewId === 'schedule-nav') return item.innerText.includes('Airing Schedule');
+        if (viewId === 'usage-nav') return item.innerText.includes('API Docs');
+        if (viewId === 'keys-nav') return item.innerText.includes('API Keys');
+        if (viewId === 'origins-nav') return item.innerText.includes('Allowed Origins');
+        return false;
+      });
+
+      if (sourceItem) {
+        sourceItem.classList.add('active');
+      }
 
       // 2. Hide all view panels
       document.querySelectorAll('.dashboard-view-section').forEach(view => {
@@ -1745,8 +1770,8 @@ const anime = data.Page.media;</pre>
         headerTitle.innerText = "Airing Broadcast Schedule";
         headerDesc.innerText = "Retrieve timetables and episode listings for upcoming releases.";
       } else if (viewId === 'usage-nav') {
-        headerTitle.innerText = "Analytics & Usage Logs";
-        headerDesc.innerText = "Trace detailed query metrics, server response times, and API consumption limits.";
+        headerTitle.innerText = "API Documentation";
+        headerDesc.innerText = "Use KinoHarth API as a clean HTTP proxy for AniList metadata.";
       } else if (viewId === 'keys-nav') {
         headerTitle.innerText = "Credentials & Keys Management";
         headerDesc.innerText = "Configure and manage access keys used to authenticate proxy transactions.";
@@ -1758,6 +1783,9 @@ const anime = data.Page.media;</pre>
 
     // Direct routing explores from card clicks
     function exploreEndpoint(route) {
+      selectedEndpoint = route;
+      switchView('overview');
+
       const prompt = document.getElementById('playground-prompt');
       const input = document.getElementById('main-query-input');
       
@@ -1767,15 +1795,18 @@ const anime = data.Page.media;</pre>
         input.value = "Frieren";
         input.placeholder = "Enter search query (e.g. Frieren, Demon Slayer)...";
       } else if (route.includes('/api/catalog')) {
-        input.value = "genre=Action&status=RELEASING";
+        input.value = "genre=Action&status=RELEASING&perPage=6";
         input.placeholder = "Enter query arguments (e.g. genre=Action)...";
       } else if (route.includes('/api/schedule')) {
         const now = Math.floor(Date.now() / 1000);
         input.value = `start=${now}&end=${now + 86400}`;
         input.placeholder = "Enter timestamp bounds...";
+      } else if (route.includes('/api/anime')) {
+        input.value = "21";
+        input.placeholder = "Enter AniList anime ID (e.g. 21 for One Piece)...";
       } else {
         input.value = "";
-        input.placeholder = "Send empty fetch...";
+        input.placeholder = "Press submit to fetch this endpoint...";
       }
       
       // Auto-focus Playground card
@@ -1863,6 +1894,7 @@ const anime = data.Page.media;</pre>
 
     // Interactive Query Console Engine
     function runRecentQuery(title) {
+      selectedEndpoint = '/api/search';
       const input = document.getElementById('main-query-input');
       input.value = title;
       executePlaygroundSearch();
@@ -1882,7 +1914,8 @@ const anime = data.Page.media;</pre>
 
     function executePlaygroundSearch() {
       const input = document.getElementById('main-query-input').value.trim();
-      if (!input) return;
+      const endpointAllowsEmptyInput = ['/api/trending', '/api/popular', '/api/recent'].some(route => selectedEndpoint.includes(route));
+      if (!input && !endpointAllowsEmptyInput) return;
 
       const loader = document.getElementById('query-loader');
       const resultsBox = document.getElementById('query-results-box');
@@ -1907,13 +1940,20 @@ const anime = data.Page.media;</pre>
         headers['X-KinoHarth-Key'] = localKey;
       }
 
-      // Check if it is a structured endpoint parameter query or simple title search
       let requestUrl = `/api/search?q=${encodeURIComponent(input)}`;
-      
-      if (input.includes('genre=') || input.includes('status=')) {
+
+      if (selectedEndpoint.includes('/api/trending')) {
+        requestUrl = input ? `/api/trending?${input}` : '/api/trending?perPage=6';
+      } else if (selectedEndpoint.includes('/api/popular')) {
+        requestUrl = input ? `/api/popular?${input}` : '/api/popular?perPage=6';
+      } else if (selectedEndpoint.includes('/api/recent')) {
+        requestUrl = input ? `/api/recent?${input}` : '/api/recent?perPage=6';
+      } else if (selectedEndpoint.includes('/api/catalog') || input.includes('genre=') || input.includes('status=') || input.includes('format=')) {
         requestUrl = `/api/catalog?${input}`;
-      } else if (input.includes('start=') || input.includes('end=')) {
+      } else if (selectedEndpoint.includes('/api/schedule') || input.includes('start=') || input.includes('end=')) {
         requestUrl = `/api/schedule?${input}`;
+      } else if (selectedEndpoint.includes('/api/anime')) {
+        requestUrl = `/api/anime/${encodeURIComponent(input || '21')}`;
       }
 
       fetch(requestUrl, { headers })
@@ -1939,9 +1979,15 @@ const anime = data.Page.media;</pre>
             mediaList = data.Page.media;
           } else if (data?.Media) {
             mediaList = [data.Media];
+          } else if (data?.Page?.airingSchedules) {
+            mediaList = data.Page.airingSchedules.map(schedule => ({
+              ...schedule.media,
+              airingEpisode: schedule.episode,
+              airingAt: schedule.airingAt
+            }));
           }
 
-          countLabel.innerText = `Search Results (${mediaList.length} items found)`;
+          countLabel.innerText = `${requestUrl} (${mediaList.length} items found)`;
 
           if (mediaList.length === 0) {
             resultsList.innerHTML = `
@@ -1957,6 +2003,7 @@ const anime = data.Page.media;</pre>
             const format = anime?.format || 'TV';
             const status = anime?.status || 'FINISHED';
             const engTitle = anime?.title?.english || anime?.title?.romaji || anime?.title?.native || 'Unknown Title';
+            const airingLabel = anime?.airingEpisode ? `Episode ${anime.airingEpisode}` : status;
 
             const itemHtml = `
               <div class="anime-result-item">
@@ -1964,11 +2011,11 @@ const anime = data.Page.media;</pre>
                 <div class="anime-result-info">
                   <span class="anime-result-title">${engTitle}</span>
                   <div class="anime-result-meta">
-                    <span class="anime-score-badge">${score} Match</span>
+                    <span class="anime-score-badge">${score}</span>
                     <span>&bull;</span>
                     <span>${format}</span>
                     <span>&bull;</span>
-                    <span>${status}</span>
+                    <span>${airingLabel}</span>
                   </div>
                 </div>
               </div>`;
