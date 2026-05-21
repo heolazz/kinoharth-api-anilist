@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vercel dev",
+    "start": "vercel dev",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
     "build": "tsc --noEmit"
