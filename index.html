@@ -971,6 +971,104 @@
       color: var(--primary);
     }
 
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .docs-panel {
+      background-color: var(--bg-page);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .docs-panel-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .docs-copy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.7rem 0.85rem;
+      min-width: 0;
+    }
+
+    .docs-copy-row code {
+      font-family: var(--font-code);
+      color: var(--text-main);
+      font-size: 0.78rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .docs-copy-row code::-webkit-scrollbar {
+      display: none;
+    }
+
+    .docs-code-block {
+      background-color: #15141a;
+      color: #f6f4ef;
+      border-radius: 10px;
+      padding: 1rem;
+      font-family: var(--font-code);
+      font-size: 0.76rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .copy-mini-btn {
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+      border-radius: 7px;
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.35rem 0.55rem;
+      flex: 0 0 auto;
+    }
+
+    .copy-mini-btn:hover {
+      border-color: var(--border-hover);
+      background-color: #fbfbf9;
+    }
+
+    .response-preview {
+      font-family: var(--font-code);
+      font-size: 0.74rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.9rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    @media (max-width: 900px) {
+      .docs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     /* Animations */
     @keyframes float-sphere {
       0%, 100% { transform: translateY(0); }
@@ -1028,7 +1126,7 @@
           <div class="nav-section-title">Management</div>
           <div class="nav-item" onclick="switchView('usage-nav')">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2"/></svg>
-            <span>Usage</span>
+            <span>API Docs</span>
           </div>
           <div class="nav-item" onclick="switchView('keys-nav')">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
@@ -1109,6 +1207,30 @@
                   <p class="ep-desc">Queries AniList dynamically using text matching on titles and synopses.</p>
                 </div>
                 <button class="ep-explore-btn" onclick="exploreEndpoint('/api/search')">Explore Search API</button>
+              </div>
+
+              <!-- Catalog -->
+              <div class="endpoint-card ep-popular">
+                <div class="ep-card-top">
+                  <div class="ep-badge-row">
+                    <span class="ep-title">Catalog API</span>
+                    <span class="ep-badge">Filter</span>
+                  </div>
+                  <p class="ep-desc">Filters AniList anime by title, genre, status, format, page, and per-page limits.</p>
+                </div>
+                <button class="ep-explore-btn" onclick="exploreEndpoint('/api/catalog')">Explore Catalog API</button>
+              </div>
+
+              <!-- Detail -->
+              <div class="endpoint-card ep-search">
+                <div class="ep-card-top">
+                  <div class="ep-badge-row">
+                    <span class="ep-title">Anime Detail API</span>
+                    <span class="ep-badge">Detail</span>
+                  </div>
+                  <p class="ep-desc">Fetches a single AniList media record with trailer, characters, relations, and recommendations.</p>
+                </div>
+                <button class="ep-explore-btn" onclick="exploreEndpoint('/api/anime')">Explore Detail API</button>
               </div>
 
               <!-- Schedule -->
@@ -1390,51 +1512,127 @@
           </section>
         </div>
 
-        <!-- VIEW 5: USAGE TAB -->
+        <!-- VIEW 5: API DOCS TAB -->
         <div id="view-usage-nav" class="dashboard-view-section">
           <section>
             <div class="details-table-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
-              <h3 class="dt-title">API Usage Analytics</h3>
-              
-              <!-- Large Visual CSS Bar Chart -->
-              <div style="background-color: var(--bg-page); border-radius: 12px; padding: 2rem 1.5rem; height: 260px; display: flex; align-items: flex-end; justify-content: space-around; position: relative;">
-                
-                <!-- Y Axis lines -->
-                <div style="position: absolute; left: 0; right: 0; top: 25%; border-bottom: 1px dashed rgba(0,0,0,0.04);"></div>
-                <div style="position: absolute; left: 0; right: 0; top: 50%; border-bottom: 1px dashed rgba(0,0,0,0.04);"></div>
-                <div style="position: absolute; left: 0; right: 0; top: 75%; border-bottom: 1px dashed rgba(0,0,0,0.04);"></div>
+              <h3 class="dt-title">API Usage Documentation</h3>
+              <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+                Semua endpoint di bawah adalah HTTP GET proxy ke AniList GraphQL. Response utama mengikuti shape AniList, jadi client KinoHarth bisa membaca <code>Page.media</code>, <code>Page.airingSchedules</code>, atau <code>Media</code> langsung dari JSON.
+              </p>
 
-                <div style="display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
-                  <div style="width: 32px; height: 40%; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 6px;"></div>
-                  <span style="font-size:0.7rem; color:var(--text-muted); margin-top:0.5rem;">Week 1</span>
+              <div class="docs-grid">
+                <div class="docs-panel">
+                  <span class="docs-panel-title">Base URL</span>
+                  <div class="docs-copy-row">
+                    <code id="docs-base-url">https://your-api-project.vercel.app</code>
+                    <button class="copy-mini-btn" onclick="copyTextFromElement('docs-base-url')">Copy</button>
+                  </div>
+                  <span style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Untuk local dev, ganti base URL dengan origin saat ini, misalnya <code>http://localhost:3005</code>.</span>
                 </div>
-                <div style="display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
-                  <div style="width: 32px; height: 65%; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 6px;"></div>
-                  <span style="font-size:0.7rem; color:var(--text-muted); margin-top:0.5rem;">Week 2</span>
-                </div>
-                <div style="display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
-                  <div style="width: 32px; height: 80%; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 6px;"></div>
-                  <span style="font-size:0.7rem; color:var(--text-muted); margin-top:0.5rem;">Week 3</span>
-                </div>
-                <div style="display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;">
-                  <div style="width: 32px; height: 50%; background: linear-gradient(180deg, var(--primary), var(--accent)); border-radius: 6px;"></div>
-                  <span style="font-size:0.7rem; color:var(--text-muted); margin-top:0.5rem;">Week 4</span>
+
+                <div class="docs-panel">
+                  <span class="docs-panel-title">Optional Auth Header</span>
+                  <div class="docs-copy-row">
+                    <code id="docs-auth-header">X-KinoHarth-Key: your_key_here</code>
+                    <button class="copy-mini-btn" onclick="copyTextFromElement('docs-auth-header')">Copy</button>
+                  </div>
+                  <span style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Header ini wajib hanya kalau environment <code>KINOHARTH_API_KEY</code> diset di server.</span>
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
-                <div style="background-color: var(--bg-page); border-radius: 12px; padding: 1rem; text-align: center;">
-                  <h4 style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Total Reqs</h4>
-                  <p style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-top: 0.25rem;">14,230</p>
+              <table class="dt-table">
+                <thead>
+                  <tr>
+                    <th>Endpoint</th>
+                    <th>Purpose</th>
+                    <th>Required Params</th>
+                    <th>Try</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="dt-code">GET /api/health</td>
+                    <td>Check proxy status.</td>
+                    <td>None</td>
+                    <td><button class="copy-mini-btn" onclick="copyRoute('/api/health')">Copy URL</button></td>
+                  </tr>
+                  <tr>
+                    <td class="dt-code">GET /api/search?q=naruto</td>
+                    <td>Search anime title from AniList.</td>
+                    <td><code>q</code> or <code>search</code></td>
+                    <td><button class="copy-mini-btn" onclick="exploreEndpoint('/api/search')">Test</button></td>
+                  </tr>
+                  <tr>
+                    <td class="dt-code">GET /api/trending</td>
+                    <td>Trending anime sorted by AniList trend/popularity.</td>
+                    <td>None</td>
+                    <td><button class="copy-mini-btn" onclick="exploreEndpoint('/api/trending')">Test</button></td>
+                  </tr>
+                  <tr>
+                    <td class="dt-code">GET /api/popular</td>
+                    <td>Popular anime sorted by popularity and score.</td>
+                    <td>None</td>
+                    <td><button class="copy-mini-btn" onclick="exploreEndpoint('/api/popular')">Test</button></td>
+                  </tr>
+                  <tr>
+                    <td class="dt-code">GET /api/catalog?genre=Action</td>
+                    <td>Browse with filters: title, genre, status, format.</td>
+                    <td>None</td>
+                    <td><button class="copy-mini-btn" onclick="exploreEndpoint('/api/catalog')">Test</button></td>
+                  </tr>
+                  <tr>
+                    <td class="dt-code">GET /api/anime/21</td>
+                    <td>Get detail metadata, trailer, characters, relations.</td>
+                    <td>Anime ID in path</td>
+                    <td><button class="copy-mini-btn" onclick="exploreEndpoint('/api/anime')">Test</button></td>
+                  </tr>
+                  <tr>
+                    <td class="dt-code">GET /api/schedule?start=...&end=...</td>
+                    <td>Upcoming airing episodes in Unix timestamp range.</td>
+                    <td><code>start</code>, <code>end</code></td>
+                    <td><button class="copy-mini-btn" onclick="exploreEndpoint('/api/schedule')">Test</button></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="docs-grid">
+                <div class="docs-panel">
+                  <span class="docs-panel-title">curl Example</span>
+                  <pre class="docs-code-block" id="docs-curl">curl "https://your-api-project.vercel.app/api/search?q=one%20piece&perPage=5" \
+  -H "Accept: application/json" \
+  -H "X-KinoHarth-Key: your_key_here"</pre>
+                  <button class="copy-mini-btn" onclick="copyTextFromElement('docs-curl')">Copy curl</button>
                 </div>
-                <div style="background-color: var(--bg-page); border-radius: 12px; padding: 1rem; text-align: center;">
-                  <h4 style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Success Rate</h4>
-                  <p style="font-size: 1.5rem; font-weight: 700; color: var(--success); margin-top: 0.25rem;">99.84%</p>
+
+                <div class="docs-panel">
+                  <span class="docs-panel-title">Frontend Fetch Example</span>
+                  <pre class="docs-code-block" id="docs-fetch">const res = await fetch("/api/search?q=one%20piece&perPage=5", {
+  headers: { "Accept": "application/json" }
+});
+
+const data = await res.json();
+const anime = data.Page.media;</pre>
+                  <button class="copy-mini-btn" onclick="copyTextFromElement('docs-fetch')">Copy JS</button>
                 </div>
-                <div style="background-color: var(--bg-page); border-radius: 12px; padding: 1rem; text-align: center;">
-                  <h4 style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Avg Latency</h4>
-                  <p style="font-size: 1.5rem; font-weight: 700; color: var(--secondary); margin-top: 0.25rem;">184ms</p>
-                </div>
+              </div>
+
+              <div class="docs-panel">
+                <span class="docs-panel-title">Response Shape Preview</span>
+                <pre class="response-preview">{
+  "Page": {
+    "pageInfo": { "total": 5000, "currentPage": 1, "hasNextPage": true },
+    "media": [
+      {
+        "id": 21,
+        "title": { "romaji": "ONE PIECE", "english": "ONE PIECE" },
+        "coverImage": { "large": "https://..." },
+        "averageScore": 88,
+        "genres": ["Action", "Adventure", "Fantasy"]
+      }
+    ]
+  }
+}</pre>
               </div>
             </div>
           </section>
@@ -1612,6 +1810,13 @@
       });
     }
 
+    function copyTextFromElement(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Copied to clipboard!");
+      });
+    }
+
     function showToast(message) {
       const toast = document.getElementById('toast');
       const text = document.getElementById('toast-text');
@@ -1621,6 +1826,19 @@
         toast.classList.remove('show');
       }, 2500);
     }
+
+    // Dynamic base URL initializer
+    document.addEventListener("DOMContentLoaded", () => {
+      const docsBase = document.getElementById('docs-base-url');
+      if (docsBase) {
+        docsBase.innerText = window.location.origin;
+      }
+      
+      const docsCurl = document.getElementById('docs-curl');
+      if (docsCurl) {
+        docsCurl.innerText = `curl "${window.location.origin}/api/search?q=one%20piece&perPage=5" \\\n  -H "Accept: application/json" \\\n  -H "X-KinoHarth-Key: your_key_here"`;
+      }
+    });
 
     // Checking real live health status of API
     function checkApiHealth() {
