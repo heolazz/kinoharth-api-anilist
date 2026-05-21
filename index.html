@@ -1,5 +1,7 @@
+<!-- trigger commit -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +9,10 @@
   <!-- Premium Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+
   <style>
     :root {
       --bg-page: #f4f3f0;
@@ -388,16 +392,19 @@
       border: 1px solid #fbcfe8;
       color: #db2777;
     }
+
     .ep-popular .ep-badge {
       background-color: #eff6ff;
       border: 1px solid #bfdbfe;
       color: #2563eb;
     }
+
     .ep-search .ep-badge {
       background-color: #f0fdf4;
       border: 1px solid #bbf7d0;
       color: #16a34a;
     }
+
     .ep-schedule .ep-badge {
       background-color: #fffbeb;
       border: 1px solid #fde68a;
@@ -481,7 +488,8 @@
       color: #db2777;
     }
 
-    .gs-item-docs .gs-icon, .gs-item-health .gs-icon {
+    .gs-item-docs .gs-icon,
+    .gs-item-health .gs-icon {
       background-color: #f9f9f7;
       border: 1px solid var(--border-color);
       color: var(--text-main);
@@ -578,15 +586,14 @@
       border-radius: 50%;
       margin-bottom: 1.5rem;
       position: relative;
-      background: radial-gradient(circle at 35% 35%, 
-        rgba(255, 255, 255, 0.95) 0%, 
-        rgba(255, 240, 248, 0.7) 15%, 
-        rgba(224, 242, 254, 0.6) 35%, 
-        rgba(254, 215, 226, 0.5) 60%, 
-        rgba(216, 180, 254, 0.4) 80%, 
-        rgba(157, 78, 221, 0.35) 100%
-      );
-      box-shadow: 
+      background: radial-gradient(circle at 35% 35%,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 240, 248, 0.7) 15%,
+          rgba(224, 242, 254, 0.6) 35%,
+          rgba(254, 215, 226, 0.5) 60%,
+          rgba(216, 180, 254, 0.4) 80%,
+          rgba(157, 78, 221, 0.35) 100%);
+      box-shadow:
         inset -8px -8px 16px rgba(0, 0, 0, 0.04),
         inset 8px 8px 16px rgba(255, 255, 255, 0.9),
         0 12px 28px rgba(157, 78, 221, 0.1),
@@ -947,7 +954,8 @@
       font-size: 0.85rem;
     }
 
-    .dt-table th, .dt-table td {
+    .dt-table th,
+    .dt-table td {
       padding: 0.75rem 1rem;
       text-align: left;
       border-bottom: 1px solid var(--border-color);
@@ -1066,24 +1074,43 @@
 
     /* Animations */
     @keyframes float-sphere {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-6px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-6px);
+      }
     }
 
     @keyframes pulse-glow {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.9); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.9);
+      }
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div class="dashboard-container">
-    
+
     <!-- LEFT SIDEBAR -->
     <aside class="sidebar">
       <div class="sidebar-top">
@@ -1098,19 +1125,30 @@
         <div class="nav-section">
           <div class="nav-section-title">API Playground</div>
           <div class="nav-item active" onclick="switchView('overview')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" />
+            </svg>
             <span>Overview</span>
           </div>
           <div class="nav-item" onclick="switchView('search-nav')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
             <span>Search Anime</span>
           </div>
           <div class="nav-item" onclick="switchView('catalog-nav')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+            </svg>
             <span>Catalog Explorer</span>
           </div>
           <div class="nav-item" onclick="switchView('schedule-nav')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
             <span>Airing Schedule</span>
           </div>
         </div>
@@ -1119,15 +1157,26 @@
         <div class="nav-section">
           <div class="nav-section-title">Management</div>
           <div class="nav-item" onclick="switchView('usage-nav')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2" />
+            </svg>
             <span>API Docs</span>
           </div>
           <div class="nav-item" onclick="switchView('keys-nav')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+            </svg>
             <span>API Keys</span>
           </div>
           <div class="nav-item" onclick="switchView('origins-nav')">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
             <span>Allowed Origins</span>
           </div>
         </div>
@@ -1157,7 +1206,8 @@
         <!-- Header -->
         <header class="main-header">
           <h1 id="view-title">Web Data Infrastructure for Anime Applications</h1>
-          <p id="view-desc">A highly reliable and high-performance serverless AniList proxy interface optimized for KinoHarth.</p>
+          <p id="view-desc">A highly reliable and high-performance serverless AniList proxy interface optimized for
+            KinoHarth.</p>
         </header>
 
         <!-- VIEW 1: OVERVIEW (DEFAULT) -->
@@ -1166,7 +1216,7 @@
           <section>
             <h2 class="section-title">Our Endpoints</h2>
             <div class="endpoints-flex">
-              
+
               <!-- Trending -->
               <div class="endpoint-card ep-trending">
                 <div class="ep-card-top">
@@ -1210,7 +1260,8 @@
                     <span class="ep-title">Catalog API</span>
                     <span class="ep-badge">Filter</span>
                   </div>
-                  <p class="ep-desc">Filters AniList anime by title, genre, status, format, page, and per-page limits.</p>
+                  <p class="ep-desc">Filters AniList anime by title, genre, status, format, page, and per-page limits.
+                  </p>
                 </div>
                 <button class="ep-explore-btn" onclick="exploreEndpoint('/api/catalog')">Explore Catalog API</button>
               </div>
@@ -1222,7 +1273,8 @@
                     <span class="ep-title">Anime Detail API</span>
                     <span class="ep-badge">Detail</span>
                   </div>
-                  <p class="ep-desc">Fetches a single AniList media record with trailer, characters, relations, and recommendations.</p>
+                  <p class="ep-desc">Fetches a single AniList media record with trailer, characters, relations, and
+                    recommendations.</p>
                 </div>
                 <button class="ep-explore-btn" onclick="exploreEndpoint('/api/anime')">Explore Detail API</button>
               </div>
@@ -1246,25 +1298,37 @@
           <section>
             <h2 class="section-title">Get Started</h2>
             <div class="get-started-grid">
-              
+
               <!-- API Key -->
               <div class="gs-item gs-item-key">
                 <div class="gs-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                  </svg>
                 </div>
                 <div class="gs-info">
                   <span class="gs-title">API Key</span>
                   <span class="gs-subtitle" id="api-key-text">Optional via X-KinoHarth-Key</span>
                 </div>
                 <div class="gs-btn-icon" onclick="copyApiKey()" title="Copy API Key">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-width="2"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-width="2" />
+                  </svg>
                 </div>
               </div>
 
               <!-- Usage -->
               <div class="gs-item gs-item-usage">
                 <div class="gs-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2" />
+                  </svg>
                 </div>
                 <div class="gs-info">
                   <span class="gs-title">Usage</span>
@@ -1281,16 +1345,25 @@
               </div>
 
               <!-- Docs link -->
-              <div class="gs-item gs-item-docs" style="cursor: pointer;" onclick="window.open('https://graphql.anilist.co', '_blank')">
+              <div class="gs-item gs-item-docs" style="cursor: pointer;"
+                onclick="window.open('https://graphql.anilist.co', '_blank')">
                 <div class="gs-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
                 </div>
                 <div class="gs-info">
                   <span class="gs-title">GraphQL Docs</span>
                   <span class="gs-subtitle">Official AniList</span>
                 </div>
                 <div class="gs-btn-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
                 </div>
               </div>
 
@@ -1304,7 +1377,11 @@
                   <span class="gs-subtitle" id="health-sub">Active & Online</span>
                 </div>
                 <div class="gs-btn-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H17m0 0V5"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H17m0 0V5" />
+                  </svg>
                 </div>
               </div>
 
@@ -1314,19 +1391,29 @@
           <!-- Section: Interactive Query Playground -->
           <section style="display: flex; flex-direction: column; gap: 1.25rem;">
             <h2 class="section-title">Query Console</h2>
-            
+
             <div class="playground-card">
               <!-- Animated realistic sphere -->
               <div class="glass-pearl"></div>
-              
+
               <h3 class="pg-title" id="playground-prompt">What do you want to build or query?</h3>
 
               <!-- Input bar -->
               <div class="query-input-wrapper">
-                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                <input class="query-input" id="main-query-input" type="text" placeholder="Ask about endpoints, search titles, or test API queries..." onkeypress="handleQueryKeypress(event)">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input class="query-input" id="main-query-input" type="text"
+                  placeholder="Ask about endpoints, search titles, or test API queries..."
+                  onkeypress="handleQueryKeypress(event)">
                 <button class="query-submit-btn" onclick="executePlaygroundSearch()" title="Submit search">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </button>
               </div>
 
@@ -1349,11 +1436,16 @@
               <!-- Header Configuration Panel (Hidden by default, triggered if key configured) -->
               <div class="settings-drawer" id="auth-drawer">
                 <div class="sd-title">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
                   <span>Authorize Gateway (Headers Settings)</span>
                 </div>
                 <div class="sd-input-group">
-                  <input class="sd-input" id="auth-header-input" type="password" placeholder="Enter X-KinoHarth-Key (Optional if not set in server)">
+                  <input class="sd-input" id="auth-header-input" type="password"
+                    placeholder="Enter X-KinoHarth-Key (Optional if not set in server)">
                   <button class="sd-save-btn" onclick="saveAuthHeader()">Set Header</button>
                 </div>
               </div>
@@ -1362,24 +1454,36 @@
               <div class="recent-queries-container" id="recent-queries-box">
                 <h4 class="rq-title">Your Recent Queries</h4>
                 <div class="rq-grid">
-                  
+
                   <div class="rq-card" onclick="runRecentQuery('Frieren Beyond Journey\'s End')">
                     <span class="rq-card-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
                     </span>
                     <span class="rq-card-text">Search for anime title "Frieren"</span>
                   </div>
 
                   <div class="rq-card" onclick="runRecentQuery('Demon Slayer')">
                     <span class="rq-card-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
                     </span>
                     <span class="rq-card-text">Search for anime title "Demon Slayer"</span>
                   </div>
 
                   <div class="rq-card" onclick="runRecentQuery('Attack on Titan')">
                     <span class="rq-card-icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
                     </span>
                     <span class="rq-card-text">Search for anime title "Attack on Titan"</span>
                   </div>
@@ -1397,9 +1501,10 @@
             <div class="details-table-card">
               <h3 class="dt-title">Direct Text Search Endpoint</h3>
               <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-                Use this route to search the AniList database for anime titles. The endpoint handles multi-word matching, fuzzy comparisons, and sorts based on match relevance and popularity.
+                Use this route to search the AniList database for anime titles. The endpoint handles multi-word
+                matching, fuzzy comparisons, and sorts based on match relevance and popularity.
               </p>
-              
+
               <table class="dt-table">
                 <thead>
                   <tr>
@@ -1413,13 +1518,15 @@
                   <tr>
                     <td class="dt-code">/api/search?q=query</td>
                     <td><strong style="color: var(--success)">GET</strong></td>
-                    <td><code>q / search</code> (String, Required), <code>page</code> (Int), <code>perPage</code> (Int)</td>
+                    <td><code>q / search</code> (String, Required), <code>page</code> (Int), <code>perPage</code> (Int)
+                    </td>
                     <td><span style="color: var(--success); font-weight:600">ONLINE</span></td>
                   </tr>
                 </tbody>
               </table>
-              
-              <button class="upgrade-btn" style="margin-top: 1.5rem; max-width: 200px;" onclick="focusSearchPlayground()">Test in Console</button>
+
+              <button class="upgrade-btn" style="margin-top: 1.5rem; max-width: 200px;"
+                onclick="focusSearchPlayground()">Test in Console</button>
             </div>
           </section>
         </div>
@@ -1430,9 +1537,10 @@
             <div class="details-table-card">
               <h3 class="dt-title">Catalog Explorer & Advanced Filters</h3>
               <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-                The Catalog Endpoint supports filtering based on various AniList metadata tags like status, genres, release format, and title strings.
+                The Catalog Endpoint supports filtering based on various AniList metadata tags like status, genres,
+                release format, and title strings.
               </p>
-              
+
               <table class="dt-table">
                 <thead>
                   <tr>
@@ -1463,8 +1571,9 @@
                   </tr>
                 </tbody>
               </table>
-              
-              <button class="upgrade-btn" style="margin-top: 1.5rem; max-width: 260px;" onclick="copyRoute('/api/catalog?genre=Action&status=RELEASING')">Copy Catalog URL Example</button>
+
+              <button class="upgrade-btn" style="margin-top: 1.5rem; max-width: 260px;"
+                onclick="copyRoute('/api/catalog?genre=Action&status=RELEASING')">Copy Catalog URL Example</button>
             </div>
           </section>
         </div>
@@ -1475,9 +1584,10 @@
             <div class="details-table-card">
               <h3 class="dt-title">Airing Schedule Timeline Endpoint</h3>
               <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-                Fetch schedules for upcoming episodes using Unix timestamps to define intervals. Required for building calendar grids or seasonal countdown lists.
+                Fetch schedules for upcoming episodes using Unix timestamps to define intervals. Required for building
+                calendar grids or seasonal countdown lists.
               </p>
-              
+
               <table class="dt-table">
                 <thead>
                   <tr>
@@ -1512,7 +1622,9 @@
             <div class="details-table-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
               <h3 class="dt-title">API Usage Documentation</h3>
               <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
-                Semua endpoint di bawah adalah HTTP GET proxy ke AniList GraphQL. Response utama mengikuti shape AniList, jadi client KinoHarth bisa membaca <code>Page.media</code>, <code>Page.airingSchedules</code>, atau <code>Media</code> langsung dari JSON.
+                Semua endpoint di bawah adalah HTTP GET proxy ke AniList GraphQL. Response utama mengikuti shape
+                AniList, jadi client KinoHarth bisa membaca <code>Page.media</code>, <code>Page.airingSchedules</code>,
+                atau <code>Media</code> langsung dari JSON.
               </p>
 
               <div class="docs-grid">
@@ -1522,7 +1634,8 @@
                     <code id="docs-base-url">https://your-api-project.vercel.app</code>
                     <button class="copy-mini-btn" onclick="copyTextFromElement('docs-base-url')">Copy</button>
                   </div>
-                  <span style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Untuk local dev, ganti base URL dengan origin saat ini, misalnya <code>http://localhost:3005</code>.</span>
+                  <span style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Untuk local dev, ganti
+                    base URL dengan origin saat ini, misalnya <code>http://localhost:3005</code>.</span>
                 </div>
 
                 <div class="docs-panel">
@@ -1531,7 +1644,8 @@
                     <code id="docs-auth-header">X-KinoHarth-Key: your_key_here</code>
                     <button class="copy-mini-btn" onclick="copyTextFromElement('docs-auth-header')">Copy</button>
                   </div>
-                  <span style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Header ini wajib hanya kalau environment <code>KINOHARTH_API_KEY</code> diset di server.</span>
+                  <span style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">Header ini wajib hanya
+                    kalau environment <code>KINOHARTH_API_KEY</code> diset di server.</span>
                 </div>
               </div>
 
@@ -1638,13 +1752,16 @@ const anime = data.Page.media;</pre>
             <div class="details-table-card">
               <h3 class="dt-title">Manage API Credentials</h3>
               <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-                Configure client-side authorization keys. Standard headers sent to the Vercel serverless function must match the key stored in the <code>KINOHARTH_API_KEY</code> environment variable if configured.
+                Configure client-side authorization keys. Standard headers sent to the Vercel serverless function must
+                match the key stored in the <code>KINOHARTH_API_KEY</code> environment variable if configured.
               </p>
-              
-              <div style="background-color: var(--bg-page); border-radius: 12px; padding: 1.25rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color);">
+
+              <div
+                style="background-color: var(--bg-page); border-radius: 12px; padding: 1.25rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border-color);">
                 <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                   <span style="font-weight: 700; font-size: 0.85rem;">Active Production Key</span>
-                  <span style="font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted);" id="api-key-full">Set KINOHARTH_API_KEY in Vercel env</span>
+                  <span style="font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted);"
+                    id="api-key-full">Set KINOHARTH_API_KEY in Vercel env</span>
                 </div>
                 <button class="upgrade-btn" style="max-width: 120px;" onclick="copyApiKey()">Copy Key</button>
               </div>
@@ -1658,9 +1775,10 @@ const anime = data.Page.media;</pre>
             <div class="details-table-card">
               <h3 class="dt-title">Allowed CORS Origins</h3>
               <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
-                Cross-Origin Resource Sharing (CORS) is enabled to securely route queries from specific front-end domains. Requesting sites outside of this list will trigger browser CORS blocking.
+                Cross-Origin Resource Sharing (CORS) is enabled to securely route queries from specific front-end
+                domains. Requesting sites outside of this list will trigger browser CORS blocking.
               </p>
-              
+
               <table class="dt-table">
                 <thead>
                   <tr>
@@ -1708,7 +1826,11 @@ const anime = data.Page.media;</pre>
 
   <!-- TOAST NOTIFICATION -->
   <div id="toast" class="toast">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+    </svg>
     <span id="toast-text">Copied to clipboard!</span>
   </div>
 
@@ -1782,9 +1904,9 @@ const anime = data.Page.media;</pre>
 
       const prompt = document.getElementById('playground-prompt');
       const input = document.getElementById('main-query-input');
-      
+
       prompt.innerText = "Test Endpoint: " + route;
-      
+
       if (route.includes('/api/search')) {
         input.value = "Frieren";
         input.placeholder = "Enter search query (e.g. Frieren, Demon Slayer)...";
@@ -1802,7 +1924,7 @@ const anime = data.Page.media;</pre>
         input.value = "";
         input.placeholder = "Press submit to fetch this endpoint...";
       }
-      
+
       // Auto-focus Playground card
       document.querySelector('.playground-card').scrollIntoView({ behavior: 'smooth' });
       input.focus();
@@ -1858,7 +1980,7 @@ const anime = data.Page.media;</pre>
       if (docsBase) {
         docsBase.innerText = window.location.origin;
       }
-      
+
       const docsCurl = document.getElementById('docs-curl');
       if (docsCurl) {
         docsCurl.innerText = `curl "${window.location.origin}/api/search?q=one%20piece&perPage=5" \\\n  -H "Accept: application/json" \\\n  -H "X-KinoHarth-Key: your_key_here"`;
@@ -1869,7 +1991,7 @@ const anime = data.Page.media;</pre>
     function checkApiHealth() {
       const sub = document.getElementById('health-sub');
       sub.innerText = "Checking server...";
-      
+
       fetch('/api/health')
         .then(res => res.json())
         .then(data => {
@@ -1927,7 +2049,7 @@ const anime = data.Page.media;</pre>
       const headers = {
         'Accept': 'application/json'
       };
-      
+
       // Attempt to retrieve API Key from memory / header input
       const localKey = document.getElementById('auth-header-input').value.trim();
       if (localKey) {
@@ -2013,7 +2135,7 @@ const anime = data.Page.media;</pre>
                   </div>
                 </div>
               </div>`;
-            
+
             resultsList.insertAdjacentHTML('beforeend', itemHtml);
           });
         })
@@ -2037,4 +2159,5 @@ const anime = data.Page.media;</pre>
     }
   </script>
 </body>
+
 </html>
