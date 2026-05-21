@@ -1,130 +1,103 @@
-import {
-  getAiringSchedule,
-  getAnimeCatalog,
-  getAnimeDetail,
-  getPopularAnime,
-  getRecentlyUpdatedAnime,
-  getTrendingAnime,
-  searchAnime,
-} from "../src/anilist";
-import {
-  applyCors,
-  assertApiKey,
-  errorJson,
-  json,
-  readInteger,
-  readUrl,
-  type ApiRequest,
-  type ApiResponse,
-} from "../src/http";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-function routeParts(url: URL) {
-  return url.pathname
-    .replace(/^\/api\/?/, "")
-    .split("/")
-    .filter(Boolean);
-}
-
-async function handleGet(req: ApiRequest, res: ApiResponse) {
-  assertApiKey(req);
-
-  const url = readUrl(req);
-  const [resource, id] = routeParts(url);
-  const page = readInteger(url, "page", 1, 1, 500);
-  const perPage = readInteger(url, "perPage", 20, 1, 50);
-
-  if (!resource || resource === "health") {
-    return json(res, {
-      ok: true,
-      service: "kinoharth-api",
-      purpose: "AniList metadata proxy",
-    });
-  }
-
-  if (resource === "trending") {
-    return json(res, await getTrendingAnime(page, perPage));
-  }
-
-  if (resource === "popular") {
-    return json(res, await getPopularAnime(page, perPage));
-  }
-
-  if (resource === "recent" || resource === "recently-updated") {
-    return json(res, await getRecentlyUpdatedAnime(page, perPage));
-  }
-
-  if (resource === "search") {
-    const query = url.searchParams.get("q") || url.searchParams.get("search") || "";
-
-    if (!query.trim()) {
-      return json(res, { Page: { pageInfo: { total: 0, currentPage: 1, hasNextPage: false }, media: [] } });
-    }
-
-    return json(res, await searchAnime(query, page, perPage));
-  }
-
-  if (resource === "catalog") {
-    return json(
-      res,
-      await getAnimeCatalog({
-        page,
-        perPage,
-        search: url.searchParams.get("q") || url.searchParams.get("search") || undefined,
-        genre: url.searchParams.get("genre") || undefined,
-        status: url.searchParams.get("status") || undefined,
-        format: url.searchParams.get("format") || undefined,
-      })
-    );
-  }
-
-  if (resource === "anime" && id) {
-    const animeId = Number(id);
-
-    if (!Number.isInteger(animeId)) {
-      return json(res, { error: "Invalid anime id." }, 400, 60);
-    }
-
-    return json(res, await getAnimeDetail(animeId));
-  }
-
-  if (resource === "schedule") {
-    const start = Number(url.searchParams.get("start"));
-    const end = Number(url.searchParams.get("end"));
-
-    if (!Number.isInteger(start) || !Number.isInteger(end)) {
-      return json(res, { error: "Missing valid start/end unix timestamps." }, 400, 60);
-    }
-
-    return json(
-      res,
-      await getAiringSchedule({
-        page,
-        perPage,
-        airingAtGreater: start,
-        airingAtLesser: end,
-      })
-    );
-  }
-
-  return json(res, { error: "Route not found." }, 404, 60);
-}
-
-export default async function handler(req: ApiRequest, res: ApiResponse) {
-  applyCors(req, res);
-
-  if (req.method === "OPTIONS") {
-    res.status(204).end();
-    return;
-  }
-
-  if (req.method !== "GET") {
-    json(res, { error: "Method not allowed." }, 405, 60);
-    return;
-  }
-
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
-    await handleGet(req, res);
-  } catch (error) {
-    errorJson(res, error);
+    // Inline CORS
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+
+    if (req.method === "OPTIONS") {
+      return res.status(204).end();
+    }
+
+    const url = new URL(req.url || "/", `https://${req.headers.host || "localhost"}`);
+    const parts = url.pathname.replace(/^\/api\/?/, "").split("/").filter(Boolean);
+    const [resource, id] = parts;
+
+    if (!resource || resource === "health") {
+      return res.status(200).json({
+        ok: true,
+        service: "kinoharth-api",
+        purpose: "AniList metadata proxy",
+        timestamp: Date.now(),
+      });
+    }
+
+    // Lazy-import to isolate potential module errors
+    const { applyCors, assertApiKey, json, errorJson, readUrl, readInteger } = await import("../src/http");
+    const anilist = await import("../src/anilist");
+
+    applyCors(req as any, res as any);
+    assertApiKey(req as any);
+
+    const parsedUrl = readUrl(req as any);
+    const page = readInteger(parsedUrl, "page", 1, 1, 500);
+    const perPage = readInteger(parsedUrl, "perPage", 20, 1, 50);
+
+    if (resource === "trending") {
+      return json(res as any, await anilist.getTrendingAnime(page, perPage));
+    }
+
+    if (resource === "popular") {
+      return json(res as any, await anilist.getPopularAnime(page, perPage));
+    }
+
+    if (resource === "recent" || resource === "recently-updated") {
+      return json(res as any, await anilist.getRecentlyUpdatedAnime(page, perPage));
+    }
+
+    if (resource === "search") {
+      const query = url.searchParams.get("q") || url.searchParams.get("search") || "";
+      if (!query.trim()) {
+        return res.status(200).json({
+          Page: { pageInfo: { total: 0, currentPage: 1, hasNextPage: false }, media: [] },
+        });
+      }
+      return json(res as any, await anilist.searchAnime(query, page, perPage));
+    }
+
+    if (resource === "catalog") {
+      return json(
+        res as any,
+        await anilist.getAnimeCatalog({
+          page,
+          perPage,
+          search: url.searchParams.get("q") || url.searchParams.get("search") || undefined,
+          genre: url.searchParams.get("genre") || undefined,
+          status: url.searchParams.get("status") || undefined,
+          format: url.searchParams.get("format") || undefined,
+        })
+      );
+    }
+
+    if (resource === "anime" && id) {
+      const animeId = Number(id);
+      if (!Number.isInteger(animeId)) {
+        return res.status(400).json({ error: "Invalid anime id." });
+      }
+      return json(res as any, await anilist.getAnimeDetail(animeId));
+    }
+
+    if (resource === "schedule") {
+      const start = Number(url.searchParams.get("start"));
+      const end = Number(url.searchParams.get("end"));
+      if (!Number.isInteger(start) || !Number.isInteger(end)) {
+        return res.status(400).json({ error: "Missing valid start/end unix timestamps." });
+      }
+      return json(
+        res as any,
+        await anilist.getAiringSchedule({ page, perPage, airingAtGreater: start, airingAtLesser: end })
+      );
+    }
+
+    return res.status(404).json({ error: "Route not found." });
+  } catch (error: unknown) {
+    console.error("[kinoharth-api] Unhandled error:", error);
+    const statusCode =
+      typeof error === "object" && error !== null && "statusCode" in error && typeof (error as any).statusCode === "number"
+        ? (error as any).statusCode
+        : 500;
+    const message = error instanceof Error ? error.message : "Internal Server Error";
+    return res.status(statusCode).json({ error: message });
   }
 }
