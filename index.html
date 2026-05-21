@@ -1722,12 +1722,12 @@ const anime = data.Page.media;</pre>
     let selectedEndpoint = '/api/search';
 
     // Tab switching routing logic
-    function switchView(viewId) {
+    function switchView(viewId, useEventSource = true) {
       // 1. Manage Active Navigation Highlight
       document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
       });
-      const sourceItem = window.event?.currentTarget || Array.from(document.querySelectorAll('.nav-item')).find(item => {
+      const sourceItem = (useEventSource ? window.event?.currentTarget : null) || Array.from(document.querySelectorAll('.nav-item')).find(item => {
         if (viewId === 'overview') return item.innerText.includes('Overview');
         if (viewId === 'search-nav') return item.innerText.includes('Search Anime');
         if (viewId === 'catalog-nav') return item.innerText.includes('Catalog Explorer');
@@ -1784,7 +1784,7 @@ const anime = data.Page.media;</pre>
     // Direct routing explores from card clicks
     function exploreEndpoint(route) {
       selectedEndpoint = route;
-      switchView('overview');
+      switchView('overview', false);
 
       const prompt = document.getElementById('playground-prompt');
       const input = document.getElementById('main-query-input');
@@ -1815,7 +1815,7 @@ const anime = data.Page.media;</pre>
     }
 
     function focusSearchPlayground() {
-      switchView('overview');
+      switchView('overview', false);
       // Highlight Search Nav active state manually
       document.querySelectorAll('.nav-item').forEach(item => {
         item.classList.remove('active');
