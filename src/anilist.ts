@@ -2,6 +2,11 @@ import type { AnimePageResponse } from "./types";
 
 const ANILIST_API_URL =
   process.env.ANILIST_API_URL || "https://graphql.anilist.co";
+const ANILIST_TIMEOUT_MS = 12_000;
+
+class AniListProxyError extends Error {
+  statusCode = 502;
+}
 
 const ANIME_FRAGMENT = `
   id
@@ -54,22 +59,41 @@ const ANIME_FRAGMENT = `
 `;
 
 async function fetchAniList<T>(query: string, variables: Record<string, unknown>) {
-  const response = await fetch(ANILIST_API_URL, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query, variables }),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), ANILIST_TIMEOUT_MS);
+  let response: Response;
+
+  try {
+    response = await fetch(ANILIST_API_URL, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "User-Agent": "kinoharth-api/0.1 (+https://kinoharth.online)",
+      },
+      body: JSON.stringify({ query, variables }),
+      signal: controller.signal,
+    });
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : "Unknown network error";
+    throw new AniListProxyError(`Unable to reach AniList: ${reason}`);
+  } finally {
+    clearTimeout(timeout);
+  }
 
   const text = await response.text();
 
   if (!response.ok) {
-    throw new Error(`AniList responded with ${response.status}: ${text.slice(0, 240)}`);
+    throw new AniListProxyError(`AniList responded with ${response.status}: ${text.slice(0, 240)}`);
   }
 
-  const payload = JSON.parse(text) as { data?: T; errors?: { message: string }[] };
+  let payload: { data?: T; errors?: { message: string }[] };
+
+  try {
+    payload = JSON.parse(text) as { data?: T; errors?: { message: string }[] };
+  } catch {
+    throw new AniListProxyError("AniList returned an invalid JSON response.");
+  }
 
   if (payload.errors?.length) {
     throw new Error(payload.errors.map((error) => error.message).join("; "));

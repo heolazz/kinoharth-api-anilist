@@ -23,6 +23,8 @@ const DEFAULT_ALLOWED_ORIGINS = [
   "https://kinoharth.online",
   "https://www.kinoharth.online",
   "http://localhost:3000",
+  "http://localhost:5173",
+  "http://localhost:5174",
 ];
 
 function getHeader(req: ApiRequest, name: string) {
@@ -40,13 +42,18 @@ function getAllowedOrigins() {
 
 export function applyCors(req: ApiRequest, res: ApiResponse) {
   const origin = getHeader(req, "origin");
+  const requestedHeaders = getHeader(req, "access-control-request-headers");
   const allowedOrigins = getAllowedOrigins();
   const allowedOrigin =
     origin && allowedOrigins.includes(origin) ? origin : allowedOrigins[0] || "*";
 
   res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-KinoHarth-Key");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    requestedHeaders || "Content-Type, X-KinoHarth-Key"
+  );
+  res.setHeader("Vary", "Origin, Access-Control-Request-Headers");
 }
 
 export function assertApiKey(req: ApiRequest) {
