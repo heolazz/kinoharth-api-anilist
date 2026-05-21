@@ -1,12 +1,6 @@
 {
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "/api/index"
-    }
-  ],
   "functions": {
-    "api/index.ts": {
+    "api/**/*.ts": {
       "memory": 256,
       "maxDuration": 15
     }

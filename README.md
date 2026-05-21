@@ -14,6 +14,7 @@ TMDB, and watch playback stay in the main KinoHarth project.
 - `GET /api/search?q=one%20piece&page=1&perPage=24`
 - `GET /api/catalog?q=&genre=&status=&format=&page=1&perPage=24`
 - `GET /api/anime/:id`
+- `GET /api/:id` (AniList ID detail alias)
 - `GET /api/schedule?start=1710000000&end=1710086400&page=1&perPage=50`
 
 ## Local Testing
@@ -46,6 +47,7 @@ http://localhost:3005
 http://localhost:3005/api/health
 http://localhost:3005/api/search?q=naruto&perPage=1
 http://localhost:3005/api/anime/21
+http://localhost:3005/api/21
 ```
 
 If `KINOHARTH_API_KEY` is configured, send:

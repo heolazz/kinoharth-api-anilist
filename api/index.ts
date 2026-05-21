@@ -33,6 +33,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const parsedUrl = readUrl(req as any);
     const page = readInteger(parsedUrl, "page", 1, 1, 500);
     const perPage = readInteger(parsedUrl, "perPage", 20, 1, 50);
+    const directAnimeId = Number(resource);
+
+    if (Number.isInteger(directAnimeId)) {
+      return json(res as any, await anilist.getAnimeDetail(directAnimeId));
+    }
 
     if (resource === "trending") {
       return json(res as any, await anilist.getTrendingAnime(page, perPage));
