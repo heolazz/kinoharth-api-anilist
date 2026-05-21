@@ -97,7 +97,7 @@ export function errorJson(res: ApiResponse, error: unknown) {
       : 500;
   const message = error instanceof Error ? error.message : "Internal Server Error";
 
-  json(res, { error: message } satisfies Record<string, JsonValue>, statusCode, 60);
+  json(res, { error: message } as Record<string, JsonValue>, statusCode, 60);
 }
 
 export function readUrl(req: ApiRequest) {
