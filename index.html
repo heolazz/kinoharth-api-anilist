@@ -36,27 +36,22 @@
     }
 
     body {
-      background-color: var(--bg-page);
+      background-color: var(--bg-sidebar);
       color: var(--text-main);
       font-family: var(--font-main);
       min-height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1.5rem;
-      overflow-x: hidden;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
 
     /* Dashboard Wrapper Container */
     .dashboard-container {
-      width: 100%;
-      max-width: 1440px;
-      height: 92vh;
-      min-height: 760px;
+      width: 100vw;
+      height: 100vh;
       background-color: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.04);
       display: grid;
       grid-template-columns: 260px 1fr;
       overflow: hidden;
@@ -1097,7 +1092,6 @@
             <div class="logo-icon">K</div>
             <span>KinoHarth API</span>
           </a>
-          <div class="user-avatar" title="heolazz"></div>
         </div>
 
         <!-- Navigation: API Playground -->
