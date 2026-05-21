@@ -1,0 +1,17 @@
+{
+  "name": "kinoharth-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit",
+    "build": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@vercel/node": "^5.5.0",
+    "typescript": "^5.9.3",
+    "vercel": "^49.1.0"
+  }
+}
