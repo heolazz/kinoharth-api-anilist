@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KinoHarth AniList API Gateway</title>
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #09080f;
+      --bg-card: rgba(18, 16, 29, 0.6);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --primary: #9d4edd;
+      --primary-glow: rgba(157, 78, 221, 0.15);
+      --secondary: #3f37c9;
+      --accent: #4cc9f0;
+      --text-main: #f3f0fc;
+      --text-muted: #8e8a9f;
+      --success: #4ade80;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Glows */
+    .glow-1 {
+      position: absolute;
+      top: -10%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(157, 78, 221, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .glow-2 {
+      position: absolute;
+      bottom: -10%;
+      right: -10%;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(76, 201, 240, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem 2rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      background: rgba(157, 78, 221, 0.1);
+      border: 1px solid rgba(157, 78, 221, 0.2);
+      color: var(--primary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #fff 30%, var(--primary) 70%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.6;
+    }
+
+    /* Info Banner */
+    .status-banner {
+      background: rgba(74, 222, 128, 0.05);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      max-width: 600px;
+      margin: 0 auto 3rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--success);
+      animation: pulse 2s infinite;
+    }
+
+    .status-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .status-link:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto 5rem auto;
+      padding: 0 2rem;
+    }
+
+    /* Core Section Title */
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      position: relative;
+      padding-left: 1rem;
+      border-left: 3px solid var(--primary);
+    }
+
+    /* Cards Grid */
+    .api-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .api-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .api-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .api-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .api-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(157, 78, 221, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--primary-glow);
+    }
+
+    .api-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .method-badge {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      background: rgba(76, 201, 240, 0.1);
+      border: 1px solid rgba(76, 201, 240, 0.2);
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+
+    /* URL Bar */
+    .url-bar {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+    }
+
+    .url-text {
+      color: var(--primary);
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .url-text::-webkit-scrollbar {
+      display: none;
+    }
+
+    .url-param {
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.25rem;
+      border-radius: 4px;
+      transition: color 0.2s, background-color 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .copy-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Parameters list */
+    .params-list {
+      margin-top: 1rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.05);
+      padding-top: 0.75rem;
+    }
+
+    .params-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .param-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .param-name {
+      font-family: 'Fira Code', monospace;
+      color: var(--accent);
+    }
+
+    .param-desc {
+      color: var(--text-muted);
+    }
+
+    /* Headers Card */
+    .headers-card {
+      background: linear-gradient(135deg, rgba(26, 21, 44, 0.6) 0%, rgba(15, 12, 30, 0.6) 100%);
+      border: 1px solid rgba(157, 78, 221, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .headers-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .headers-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .header-table th, .header-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .header-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    .header-name {
+      font-family: 'Fira Code', monospace;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .header-val {
+      font-family: 'Fira Code', monospace;
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #12101d;
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      color: #fff;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.95); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade {
+      animation: fadeIn 0.8s ease forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+
+  <header class="animate-fade">
+    <div class="badge">AniList Proxy Gateway</div>
+    <h1>KinoHarth API</h1>
+    <p class="subtitle">High-performance, lightweight, and CORS-enabled serverless metadata router optimized for KinoHarth client apps.</p>
+    
+    <div class="status-banner">
+      <div class="status-dot"></div>
+      <span>AniList API Proxy is online. Check health status at </span>
+      <a href="/api/health" class="status-link">/api/health</a>
+    </div>
+  </header>
+
+  <main class="animate-fade" style="animation-delay: 0.2s;">
+    <!-- Headers Card -->
+    <section>
+      <div class="headers-card">
+        <h2 class="headers-title">Authentication & Access</h2>
+        <p class="headers-desc">To interact with the AniList proxy API, your client requests should include correct authorization headers if configured. Cross-Origin Resource Sharing (CORS) is enabled for allowed origin domains.</p>
+        <table class="header-table">
+          <thead>
+            <tr>
+              <th>Header Name</th>
+              <th>Required</th>
+              <th>Expected Value</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="header-name">X-KinoHarth-Key</td>
+              <td>Conditional</td>
+              <td class="header-val">&lt;your_api_key&gt;</td>
+              <td>Verifies the client is authorized to request the AniList gateway proxy.</td>
+            </tr>
+            <tr>
+              <td class="header-name">Content-Type</td>
+              <td>Yes</td>
+              <td class="header-val">application/json</td>
+              <td>Defines request payload structure.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Endpoints Section -->
+    <section>
+      <h2 class="section-title">API Routing Reference</h2>
+      
+      <div class="api-grid">
+        <!-- Trending -->
+        <div class="api-card">
+          <div class="card-header">
+            <h3 class="card-title">Trending Anime</h3>
+            <span class="method-badge">GET</span>
+          </div>
+          <p class="card-desc">Fetch the list of currently trending anime series sorted by popularity and activity.</p>
+          <div class="url-bar">
+            <span class="url-text">/api/trending</span>
+            <button class="copy-btn" onclick="copyRoute('/api/trending')" title="Copy path">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="params-list">
+            <div class="params-title">Query Parameters</div>
+            <div class="param-item">
+              <span class="param-name">page</span>
+              <span class="param-desc">Page number (default: 1)</span>
+            </div>
+            <div class="param-item">
+              <span class="param-name">perPage</span>
+              <span class="param-desc">Items per page (default: 20, max: 50)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Popular -->
+        <div class="api-card">
+          <div class="card-header">
+            <h3 class="card-title">Popular Anime</h3>
+            <span class="method-badge">GET</span>
+          </div>
+          <p class="card-desc">Fetch the most popular anime of all time sorted by total rating score and member counts.</p>
+          <div class="url-bar">
+            <span class="url-text">/api/popular</span>
+            <button class="copy-btn" onclick="copyRoute('/api/popular')" title="Copy path">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="params-list">
+            <div class="params-title">Query Parameters</div>
+            <div class="param-item">
+              <span class="param-name">page</span>
+              <span class="param-desc">Page number (default: 1)</span>
+            </div>
+            <div class="param-item">
+              <span class="param-name">perPage</span>
+              <span class="param-desc">Items per page (default: 20)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search -->
+        <div class="api-card">
+          <div class="card-header">
+            <h3 class="card-title">Search Anime</h3>
+            <span class="method-badge">GET</span>
+          </div>
+          <p class="card-desc">Perform direct text query search on the AniList database for titles, tags, and synopses.</p>
+          <div class="url-bar">
+            <span class="url-text">/api/search<span class="url-param">?q=Frieren</span></span>
+            <button class="copy-btn" onclick="copyRoute('/api/search?q=Frieren')" title="Copy path">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="params-list">
+            <div class="params-title">Query Parameters</div>
+            <div class="param-item">
+              <span class="param-name">q / search</span>
+              <span class="param-desc">Search keyword (Required)</span>
+            </div>
+            <div class="param-item">
+              <span class="param-name">page</span>
+              <span class="param-desc">Page number (default: 1)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Anime Details -->
+        <div class="api-card">
+          <div class="card-header">
+            <h3 class="card-title">Anime Details</h3>
+            <span class="method-badge">GET</span>
+          </div>
+          <p class="card-desc">Fetch complete details for a specific anime series, including trailers, characters, and related media.</p>
+          <div class="url-bar">
+            <span class="url-text">/api/anime/<span class="url-param">:id</span></span>
+            <button class="copy-btn" onclick="copyRoute('/api/anime/173518')" title="Copy path">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="params-list">
+            <div class="params-title">Path Parameters</div>
+            <div class="param-item">
+              <span class="param-name">id</span>
+              <span class="param-desc">AniList Anime ID (e.g. 173518 for Frieren)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Catalog / Filter -->
+        <div class="api-card">
+          <div class="card-header">
+            <h3 class="card-title">Anime Catalog & Filters</h3>
+            <span class="method-badge">GET</span>
+          </div>
+          <p class="card-desc">Advanced catalog explorer supporting detailed filters for genres, release format, and media status.</p>
+          <div class="url-bar">
+            <span class="url-text">/api/catalog<span class="url-param">?genre=Action&status=RELEASING</span></span>
+            <button class="copy-btn" onclick="copyRoute('/api/catalog?genre=Action&status=RELEASING')" title="Copy path">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="params-list">
+            <div class="params-title">Query Parameters</div>
+            <div class="param-item">
+              <span class="param-name">genre</span>
+              <span class="param-desc">Genre name (e.g. Action, Fantasy)</span>
+            </div>
+            <div class="param-item">
+              <span class="param-name">status</span>
+              <span class="param-desc">MediaStatus (e.g. RELEASING, FINISHED)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Airing Schedule -->
+        <div class="api-card">
+          <div class="card-header">
+            <h3 class="card-title">Airing Schedule</h3>
+            <span class="method-badge">GET</span>
+          </div>
+          <p class="card-desc">Fetch the list of airing episodes within a specified Unix timestamp start and end range.</p>
+          <div class="url-bar">
+            <span class="url-text">/api/schedule<span class="url-param">?start=1700000000&end=1700086400</span></span>
+            <button class="copy-btn" onclick="copyRoute('/api/schedule?start=1700000000&end=1700086400')" title="Copy path">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+          </div>
+          <div class="params-list">
+            <div class="params-title">Query Parameters</div>
+            <div class="param-item">
+              <span class="param-name">start</span>
+              <span class="param-desc">Unix timestamp start (Required)</span>
+            </div>
+            <div class="param-item">
+              <span class="param-name">end</span>
+              <span class="param-desc">Unix timestamp end (Required)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 KinoHarth Gateway. Powered by <a href="https://anilist.co" target="_blank">AniList API</a>.</p>
+  </footer>
+
+  <div id="toast" class="toast">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    <span>Route path copied to clipboard!</span>
+  </div>
+
+  <script>
+    function copyRoute(path) {
+      const fullUrl = window.location.origin + path;
+      navigator.clipboard.writeText(fullUrl).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 2500);
+      }).catch(err => {
+        console.error('Failed to copy link: ', err);
+      });
+    }
+  </script>
+</body>
+</html>
