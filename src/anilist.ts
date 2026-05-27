@@ -295,3 +295,34 @@ export function getAiringSchedule({
     airingAtLesser,
   });
 }
+
+export async function getAnimeByStudio(studioId: number, page = 1, perPage = 24) {
+  const query = `
+    query ($studioId: Int, $page: Int, $perPage: Int) {
+      Studio(id: $studioId) {
+        media(page: $page, perPage: $perPage, sort: POPULARITY_DESC, isMain: true) {
+          pageInfo {
+            total
+            currentPage
+            lastPage
+            hasNextPage
+            perPage
+          }
+          nodes {
+            ${ANIME_FRAGMENT}
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await fetchAniList<{ Studio: { media: { pageInfo: unknown; nodes: unknown[] } } }>(query, { studioId, page, perPage });
+
+  // Transform to match AnimePageResponse format
+  return {
+    Page: {
+      pageInfo: data?.Studio?.media?.pageInfo,
+      media: data?.Studio?.media?.nodes || [],
+    }
+  } as unknown as AnimePageResponse;
+}

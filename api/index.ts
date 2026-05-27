@@ -95,6 +95,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       );
     }
 
+    if (resource === "studio" && id) {
+      const studioId = Number(id);
+      if (!Number.isInteger(studioId)) {
+        return res.status(400).json({ error: "Invalid studio id." });
+      }
+      return json(res as any, await anilist.getAnimeByStudio(studioId, page, perPage));
+    }
+
     return res.status(404).json({ error: "Route not found." });
   } catch (error: unknown) {
     console.error("[kinoharth-api] Unhandled error:", error);
